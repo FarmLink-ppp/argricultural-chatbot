@@ -1,18 +1,20 @@
 # app.py
 from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS
 from chat1 import fetch_website_content, initialize_vector_store
 from chat2 import setup_retrieval_qa
 from test import extract_text_file
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 # Example URLs and PDF files
-urls = ["https://boosteno.com/"]   # Make sure no invisible bad characters
+urls = ["https://www.expert-gaming.tn/"]
 pdf_files = ["Data/farmerbook.txt"]
 
 # Fetch content from websites
 website_contents = [fetch_website_content(url) for url in urls]
-
+print(website_contents)
 # Extract text from PDF files
 pdf_texts = [extract_text_file(pdf_file) for pdf_file in pdf_files]
 
@@ -31,7 +33,7 @@ def index():
 
 @app.route('/ask', methods=['POST'])
 def ask():
-    data = request.get_json()  # <-- Read JSON body
+    data = request.get_json()
     if not data or 'messageText' not in data:
         return jsonify({"error": "Missing 'messageText' in JSON body."}), 400
 

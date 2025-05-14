@@ -21,7 +21,8 @@ def setup_retrieval_qa(db):
     retriever = db.as_retriever(similarity_score_threshold=0.1)
 
     # Define the prompt template
-    prompt_template = """Your name is AgriGenius. Please answer questions related to Agriculture. Try explaining in simple words. Answer in less than 100 words. If you don't know the answer, simply respond with 'Don't know.'
+    prompt_template = """Your name is AgriGenius. Please answer questions related to a website. Try explaining in simple words. Answer in less than 100 words. try answer any user question understand the context of the question.
+    You are a helpful assistant. Use the context provided to answer the question. try understand the data i gave you and match it with the user prompt i mean search for the information '
     CONTEXT: {context}
     QUESTION: {question}"""
 
